@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title>Aerolínea SKY</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="container d-flex justify-content-between align-items-center">
+
+    <span class="navbar-brand">
+        ✈ SKY
+    </span>
+
+    <div class="menu">
+
+        <a href="/">Inicio</a>
+
+        <a href="/vuelos">Vuelos</a>
+
+        <a href="/reservar">Reservar</a>
+
+        <a href="/reservas">Mis Reservas</a>
+
+        <a href="/buscar_reserva">Buscar Reserva</a>
+
+        <a href="/vuelos">Estado del Vuelo</a>
+
+        {% if session.get('usuario_nombre') %}
+
+            <a href="#" class="btn-login">
+                Hola, {{ session.get('usuario_nombre') }}
+            </a>
+
+            <a href="/logout" class="btn btn-danger">
+                Cerrar sesión
+            </a>
+
+        {% else %}
+
+            <a href="/login" class="btn-login">
+                Iniciar sesión
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+    <h1>
+        ¿A dónde podemos llevarte?
+    </h1>
+
+    <p>
+        Reserva vuelos nacionales de forma rápida, segura y sencilla.
+    </p>
+
+</div>
+
+</section>
+
+<div class="container stats">
+
+<div class="row text-center">
+
+    <div class="col-md-3">
+        <h4>✈ 50+</h4>
+        <p>Destinos</p>
+    </div>
+
+    <div class="col-md-3">
+        <h4>🧳 24/7</h4>
+        <p>Atención</p>
+    </div>
+
+    <div class="col-md-3">
+        <h4>🎫 100%</h4>
+        <p>Reservas seguras</p>
+    </div>
+
+    <div class="col-md-3">
+        <h4>⭐ 4.9</h4>
+        <p>Calificación</p>
+    </div>
+
+</div>
+
+</div>
+
+<div class="container search-box">
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+
+        <div class="card-option">
+
+            <h3>🛫 Vuelos</h3>
+
+            <p>
+                Consulta todos los vuelos disponibles.
+            </p>
+
+            <a href="/vuelos" class="btn btn-primary">
+                Buscar vuelos
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card-option">
+
+            <h3>🎫 Reservar</h3>
+
+            <p>
+                Elige tu vuelo y selecciona tu asiento.
+            </p>
+
+            <a href="/reservar" class="btn btn-success">
+                Reservar ahora
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card-option">
+
+            <h3>📋 Mis reservas</h3>
+
+            <p>
+                Consulta o cancela tus reservaciones.
+            </p>
+
+            <a href="/reservas" class="btn btn-warning">
+                Ver reservas
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<footer class="footer">
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <h4>✈ SKY</h4>
+
+            <p>
+                Tu aerolínea de confianza para vuelos nacionales.
+            </p>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <h5>Servicios</h5>
+
+            <p>Reservar vuelos</p>
+            <p>Consultar reservas</p>
+            <p>Estado de vuelos</p>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <h5>Contacto</h5>
+
+            <p>soporte@sky.com</p>
+            <p>+52 55 1234 5678</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</footer>
+
+</body>
+</html>

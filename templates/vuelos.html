@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vuelos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand">
+            ✈ AEROLÍNEA SKY
+        </span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">Buscar vuelos</h1>
+
+    <form method="GET" class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <input type="text" name="origen" class="form-control" placeholder="Origen">
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" name="destino" class="form-control" placeholder="Destino">
+        </div>
+
+        <div class="col-md-3">
+            <input type="date" name="fecha" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">
+                Buscar
+            </button>
+        </div>
+
+    </form>
+
+    <table class="table table-hover table-bordered">
+
+        <tr class="table-dark">
+            <th>Código</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Asientos</th>
+            <th>Estado</th>
+        </tr>
+
+        {% for vuelo in vuelos %}
+
+        <tr>
+            <td>{{ vuelo.codigo_vuelo }}</td>
+            <td>{{ vuelo.origen }}</td>
+            <td>{{ vuelo.destino }}</td>
+            <td>{{ vuelo.fecha }}</td>
+            <td>{{ vuelo.hora }}</td>
+
+            <td>
+                {% if vuelo.asientos > 0 %}
+                    <span class="badge bg-success">
+                        {{ vuelo.asientos }} disponibles
+                    </span>
+                {% else %}
+                    <span class="badge bg-danger">
+                        Sin lugares
+                    </span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if vuelo.estado == 'A tiempo' %}
+                    <span class="badge bg-success">
+                        {{ vuelo.estado }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">
+                        {{ vuelo.estado }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <a href="/" class="btn btn-secondary">
+        Volver
+    </a>
+
+</div>
+
+</body>
+</html>

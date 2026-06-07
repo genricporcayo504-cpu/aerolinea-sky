@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <span class="navbar-brand">
+            ✈ AEROLÍNEA SKY
+        </span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">Reservas</h1>
+
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            {% for mensaje in mensajes %}
+                <div class="alert alert-success">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <table class="table table-hover table-bordered">
+
+        <tr class="table-dark">
+            <th>Código</th>
+            <th>Pasajero</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Vuelo</th>
+            <th>Ruta</th>
+            <th>Fecha</th>
+            <th>Asiento</th>
+            <th>Acción</th>
+        </tr>
+
+        {% for reserva in reservas %}
+
+        <tr>
+            <td>{{ reserva.codigo_reserva }}</td>
+            <td>{{ reserva.nombre }} {{ reserva.apellido }}</td>
+            <td>{{ reserva.correo }}</td>
+            <td>{{ reserva.telefono }}</td>
+            <td>{{ reserva.codigo_vuelo }}</td>
+            <td>{{ reserva.origen }} → {{ reserva.destino }}</td>
+            <td>{{ reserva.fecha }} {{ reserva.hora }}</td>
+
+            <td>
+                <span class="badge bg-primary">
+                    {{ reserva.asiento }}
+                </span>
+            </td>
+
+            <td>
+                <a href="/cancelar/{{ reserva.id }}" class="btn btn-danger btn-sm">
+                    Cancelar
+                </a>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <a href="/" class="btn btn-secondary">
+        Volver
+    </a>
+
+</div>
+
+</body>
+</html>

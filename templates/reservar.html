@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservar</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .cabina{
+            background:#f8fafc;
+            padding:30px;
+            border-radius:30px;
+            border:3px solid #d1d5db;
+            max-width:520px;
+            margin:auto;
+        }
+
+        .cabina-frente{
+            background:#111827;
+            color:white;
+            text-align:center;
+            padding:12px;
+            border-radius:80px 80px 20px 20px;
+            margin-bottom:25px;
+            font-weight:bold;
+        }
+
+        .fila-avion{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:10px;
+            margin-bottom:12px;
+        }
+
+        .pasillo{
+            width:50px;
+        }
+
+        .asiento{
+            width:60px;
+            height:60px;
+            border:none;
+            border-radius:14px;
+            background:#22c55e;
+            color:white;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        .asiento:hover{
+            background:#16a34a;
+        }
+
+        .asiento.seleccionado{
+            background:#facc15;
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">✈ SKY</span>
+
+        <div class="menu">
+            <a href="/">Inicio</a>
+            <a href="/vuelos">Vuelos</a>
+            <a href="/reservas">Mis Reservas</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4 text-center">Hacer Reserva</h1>
+
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            {% for mensaje in mensajes %}
+                <div class="alert alert-warning">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" onsubmit="return validarAsiento()">
+
+        <div class="card p-4 shadow mb-4">
+
+            <h3>Datos del pasajero</h3>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="apellido" class="form-control" required>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo</label>
+                    <input type="email" name="correo" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" required>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Selecciona vuelo</label>
+
+                <select name="vuelo_id" class="form-select" required>
+                    {% for vuelo in vuelos %}
+                    <option value="{{ vuelo.id }}">
+                        {{ vuelo.codigo_vuelo }} |
+                        {{ vuelo.origen }} → {{ vuelo.destino }} |
+                        {{ vuelo.fecha }} |
+                        {{ vuelo.hora }} |
+                        Asientos: {{ vuelo.asientos }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="card p-4 shadow mb-4">
+
+            <h3 class="text-center mb-3">✈ Selecciona tu asiento</h3>
+
+            <p class="text-center text-muted">
+                Verde = disponible | Amarillo = seleccionado
+            </p>
+
+            <div class="cabina">
+
+                <div class="cabina-frente">CABINA</div>
+
+                {% for fila in range(1,9) %}
+
+                <div class="fila-avion">
+
+                    <button type="button" class="asiento" onclick="seleccionarAsiento(this, '{{ fila }}A')">
+                        {{ fila }}A
+                    </button>
+
+                    <button type="button" class="asiento" onclick="seleccionarAsiento(this, '{{ fila }}B')">
+                        {{ fila }}B
+                    </button>
+
+                    <div class="pasillo"></div>
+
+                    <button type="button" class="asiento" onclick="seleccionarAsiento(this, '{{ fila }}C')">
+                        {{ fila }}C
+                    </button>
+
+                    <button type="button" class="asiento" onclick="seleccionarAsiento(this, '{{ fila }}D')">
+                        {{ fila }}D
+                    </button>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <input type="hidden" name="asiento" id="asientoSeleccionado">
+
+            <p class="text-center mt-3">
+                Asiento seleccionado:
+                <strong id="textoAsiento">Ninguno</strong>
+            </p>
+
+        </div>
+
+        <button class="btn btn-primary">
+            Reservar
+        </button>
+
+        <a href="/" class="btn btn-secondary">
+            Volver
+        </a>
+
+    </form>
+
+</div>
+
+<script>
+    function seleccionarAsiento(boton, asiento){
+
+        document.querySelectorAll(".asiento").forEach(function(x){
+            x.classList.remove("seleccionado");
+        });
+
+        boton.classList.add("seleccionado");
+
+        document.getElementById("asientoSeleccionado").value = asiento;
+        document.getElementById("textoAsiento").innerText = asiento;
+    }
+
+    function validarAsiento(){
+        let asiento = document.getElementById("asientoSeleccionado").value;
+
+        if(asiento === ""){
+            alert("Selecciona un asiento antes de reservar");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
