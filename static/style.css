@@ -224,37 +224,9 @@ body{
     color:white;
 }
 
-/* RESPONSIVE */
+/* ASIENTOS */
 
-@media(max-width:768px){
-
-    .menu{
-        flex-direction:column;
-        gap:10px;
-    }
-
-    .hero{
-        min-height:400px;
-        text-align:center;
-    }
-
-    .hero h1{
-        font-size:40px;
-    }
-
-    .hero p{
-        font-size:18px;
-    }
-
-    .search-box{
-        margin-top:30px;
-        padding:25px;
-    }
-
-    .stats h4{
-        font-size:28px;
-    }
-    .cabina{
+.cabina{
     background:white;
     padding:30px;
     border-radius:20px;
@@ -300,72 +272,134 @@ body{
     background:#dc3545;
     cursor:not-allowed;
 }
-/* ===== RESPONSIVE CELULAR ===== */
-@media (max-width: 768px) {
 
-    body {
-        overflow-x: hidden;
+/* RESPONSIVE CELULAR */
+
+@media(max-width:768px){
+
+    body{
+        overflow-x:hidden;
     }
 
-    nav {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-        text-align: center;
+    .navbar{
+        padding:15px;
     }
 
-    nav ul {
-        flex-direction: column;
-        gap: 12px;
-        padding: 0;
+    .navbar-brand{
+        font-size:26px;
+        display:block;
+        text-align:center;
+        margin-bottom:12px;
     }
 
-    .hero {
-        height: auto;
-        min-height: 450px;
-        padding: 60px 20px;
-        text-align: center;
+    .menu{
+        display:grid;
+        grid-template-columns:repeat(3, 1fr);
+        gap:8px;
+        width:100%;
+        text-align:center;
     }
 
-    .hero h1 {
-        font-size: 38px;
-        line-height: 1.2;
+    .menu a{
+        font-size:13px;
+        padding:8px 5px;
     }
 
-    .hero p {
-        font-size: 18px;
+    .btn-login{
+        grid-column:1 / 4;
+        width:80%;
+        margin:auto;
+        padding:10px;
+        font-size:14px;
     }
 
-    .stats,
-    .cards,
-    .contenedor,
-    .form-container {
-        flex-direction: column;
-        width: 95%;
-        margin: auto;
+    .hero{
+        min-height:390px;
+        padding:40px 20px;
+        text-align:center;
+        background-position:center;
     }
 
-    table {
-        font-size: 13px;
-        width: 100%;
+    .hero h1{
+        font-size:38px;
+        line-height:1.2;
     }
 
-    .tabla-contenedor {
-        overflow-x: auto;
-        width: 100%;
+    .hero p{
+        font-size:17px;
+    }
+
+    .stats{
+        margin-top:30px;
+        margin-bottom:30px;
+    }
+
+    .stats .row{
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:15px;
+    }
+
+    .stats h4{
+        font-size:26px;
+    }
+
+    .stats p{
+        font-size:13px;
+    }
+
+    .search-box{
+        width:95%;
+        padding:25px 15px;
+        margin:30px auto;
+    }
+
+    .card-option{
+        padding:25px 15px;
+        margin-bottom:15px;
+    }
+
+    .card-option h3{
+        font-size:26px;
+    }
+
+    .table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+        font-size:13px;
     }
 
     input,
     select,
-    button {
-        width: 100%;
-        font-size: 16px;
+    button,
+    .btn{
+        width:100%;
+        font-size:15px;
     }
 
-    .btn,
-    button {
-        margin-top: 10px;
+    .footer{
+        text-align:center;
+        padding:40px 20px;
+    }
+
+    .footer .row{
+        gap:25px;
+    }
+
+    .cabina{
+        padding:15px;
+        overflow-x:auto;
+    }
+
+    .asiento{
+        width:45px;
+        height:45px;
+        font-size:13px;
+    }
+
+    .pasillo{
+        width:25px;
     }
 }
 
-}
