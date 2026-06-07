@@ -1,0 +1,6 @@
+flask
+pymysql
+gunicorn
+werkzeug
+qrcode[pil]
+reportlab
