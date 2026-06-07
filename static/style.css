@@ -300,5 +300,72 @@ body{
     background:#dc3545;
     cursor:not-allowed;
 }
+/* ===== RESPONSIVE CELULAR ===== */
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 450px;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .stats,
+    .cards,
+    .contenedor,
+    .form-container {
+        flex-direction: column;
+        width: 95%;
+        margin: auto;
+    }
+
+    table {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .tabla-contenedor {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    input,
+    select,
+    button {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .btn,
+    button {
+        margin-top: 10px;
+    }
+}
 
 }
